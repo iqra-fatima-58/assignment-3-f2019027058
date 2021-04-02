@@ -33,18 +33,31 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         ComboBox = new javax.swing.JComboBox<>();
+        btnshowdata = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnshowdata.setText("Show Value");
+        btnshowdata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnshowdataActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(btnshowdata)))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -52,11 +65,46 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addGap(73, 73, 73)
+                .addComponent(btnshowdata)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnshowdataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnshowdataActionPerformed
+        // TODO add your handling code here:
+        
+             
+        try {
+            Connection conn;
+            
+            String dbURL = "jdbc:sqlserver://Localhost;ServerName=DESKTOP-HLEC4C3\\SQLEXPRESS;database=assignment3";
+            String userName = "sa";
+            String password = "";
+            
+            conn = DriverManager.getConnection(dbURL, userName, password);
+            
+            String query = "select * from CITIES";
+            Statement stmt;
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                String value = rs.getString("city_name");
+                ComboBox.addItem(value);
+                
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnshowdataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -95,5 +143,6 @@ public class NewJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBox;
+    private javax.swing.JButton btnshowdata;
     // End of variables declaration//GEN-END:variables
 }
