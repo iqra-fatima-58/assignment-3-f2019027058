@@ -37,7 +37,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select city" }));
 
         btnshowdata.setText("Show Value");
         btnshowdata.addActionListener(new java.awt.event.ActionListener() {
@@ -80,13 +80,13 @@ public class NewJFrame extends javax.swing.JFrame {
         try {
             Connection conn;
             
-            String dbURL = "jdbc:sqlserver://Localhost;ServerName=DESKTOP-HLEC4C3\\SQLEXPRESS;database=assignment3";
-            String userName = "sa";
-            String password = "";
+            String dbURL = "jdbc:postgresql://127.0.0.1:5432/cities";
+            String userName = "postgres";
+            String password = "123";
             
             conn = DriverManager.getConnection(dbURL, userName, password);
             
-            String query = "select * from CITIES";
+            String query = "select * from cities";
             Statement stmt;
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
